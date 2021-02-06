@@ -19,7 +19,7 @@ public class ProcessService {
             String content = new String(file.getBytes());
             return content.split("\n");
         } catch (IOException e) {
-           throw new MudanzaException(e.getMessage());
+            throw new MudanzaException(e.getMessage());
         }
 
     }

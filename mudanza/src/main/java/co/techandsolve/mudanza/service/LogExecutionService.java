@@ -21,7 +21,7 @@ public class LogExecutionService {
         this.repository.save(execution);
     }
 
-    public LogExecution buildLog(String document, String response){
+    public LogExecution buildLog(String document, String response) {
         LogExecution logExecution = new LogExecution();
         logExecution.setDocument(document);
         logExecution.setTravels(response);
