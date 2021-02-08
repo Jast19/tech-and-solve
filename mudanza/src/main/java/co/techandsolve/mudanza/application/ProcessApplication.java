@@ -15,8 +15,8 @@ import java.util.List;
 @Component
 public class ProcessApplication {
 
-    private ProcessService processService;
-    private LogExecutionService logService;
+    private final ProcessService processService;
+    private final LogExecutionService logService;
 
     @Autowired
     public ProcessApplication(ProcessService processService, LogExecutionService logService) {
@@ -33,7 +33,7 @@ public class ProcessApplication {
         return this.objectMapperResponse(response);
     }
 
-    private byte[] objectMapperResponse(String response) throws MudanzaException {
+    private byte[] objectMapperResponse(String response) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String writeValue = objectMapper.writeValueAsString(response);

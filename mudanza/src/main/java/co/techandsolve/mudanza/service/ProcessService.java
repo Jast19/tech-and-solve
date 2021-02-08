@@ -14,17 +14,17 @@ import java.util.List;
 @Service
 public class ProcessService {
 
-    public String[] getListFile(MultipartFile file) throws MudanzaException {
+    public String[] getListFile(MultipartFile file) {
         try {
             String content = new String(file.getBytes());
             return content.split("\n");
         } catch (IOException e) {
-            throw new MudanzaException(e.getMessage());
+            throw new MudanzaException(e.getMessage(), e);
         }
 
     }
 
-    public List<Integer> parseIntList(String[] elements) throws FileWithoutNumbersException {
+    public List<Integer> parseIntList(String[] elements) {
         List<Integer> list = new LinkedList<>();
         for (int i = 0; i < elements.length; i++) {
             try {
@@ -39,7 +39,7 @@ public class ProcessService {
     public String processWorkDays(List<Integer> elements) {
         int numberDays = 0;
         int count;
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         for (int z = 1; z < elements.size(); z++) {
             numberDays++;
             int numberObjects = elements.get(z);
@@ -56,7 +56,7 @@ public class ProcessService {
 
     private int calculateTravels(List<Integer> elements) {
         Integer max = Collections.max(elements);
-        elements.remove(Integer.valueOf(max));
+        elements.remove(max);
         int weight = 0;
         int i = 1;
         int travel = 0;
@@ -64,7 +64,7 @@ public class ProcessService {
             if (elements.isEmpty())
                 return 0;
             Integer min = Collections.min(elements);
-            elements.remove(Integer.valueOf(min));
+            elements.remove(min);
             i++;
             weight = max * i;
         }

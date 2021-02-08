@@ -10,7 +10,7 @@ import java.util.Date;
 @Service
 public class LogExecutionService {
 
-    private LogExecutionRepository repository;
+    private final LogExecutionRepository repository;
 
     @Autowired
     public LogExecutionService(LogExecutionRepository repository) {

@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.0"
 }
 
 group = 'co.techandsolve'
@@ -23,4 +25,29 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/jacoco")
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "Java :: Mudanza"
+        property "sonar.projectKey", "Mundanza"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "b49f897e8a4e75b7c71bcb908b7410d28c02079c"
+        property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/jacoco/test/jacocoTestReport.xml"
+    }
 }
